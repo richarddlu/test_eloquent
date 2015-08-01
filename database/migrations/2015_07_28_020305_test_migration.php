@@ -22,8 +22,8 @@ class TestMigration extends Migration
         Schema::create('posts', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->string('content');
-            $table->integer('user_id')->unsigned();
+            $table->string('content')->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });

@@ -42,11 +42,6 @@ class DatabaseSeeder extends Seeder
         $phone2->user_id = 2;
         $phone2->save();
 
-        $phone3 = new Phone;
-        $phone3->number = '434524';
-        $phone3->user_id = 'NULL';
-        $phone3->save();
-
         $post1 = new Post;
         $post1->content = 'post 1';
         $post1->user_id = 1;
@@ -61,6 +56,15 @@ class DatabaseSeeder extends Seeder
         $post3->content = 'post 3';
         $post3->user_id = 2;
         $post3->save();
+
+        $post4 = new Post;
+        $post4->user_id = 1;
+        $post4->save();
+
+        $post5 = new Post;
+        $post5->content = '';
+        $post5->user_id = 1;
+        $post5->save();
 
         $photo = new Photo;
         $photo->desc = 'photo 1';
