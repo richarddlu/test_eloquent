@@ -5,6 +5,8 @@
 !/app/User.php
 !/app/Phone.php
 !/app/Photo.php
+!/app/Post.php
+!/app/DefaultTest.php
 
 !/database
 /database/*
