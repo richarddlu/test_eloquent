@@ -235,27 +235,32 @@ class EloquentTest extends TestCase
         $this->assertEquals(1, $posts->count());
     }
 
-    public function testDefaultValue()
+    /**
+     * Test the updated_at column when updating with method save()
+     */
+    public function testUpdatedAtWhenUpdatingWithSave()
     {
-        $test = new DefaultTest;
-        $test->save();
-        $id = $test->id;
-        $test = DefaultTest::find($id);
-        // string_not_null_no_default
-        $this->assertSame('', $test->string_not_null_no_default);
-        // string_not_null_default
-        $this->assertEquals('default string', $test->string_not_null_default);
-        // string_null_no_default
-        $this->assertNull($test->string_null_no_default);
-        // string_null_default
-        $this->assertEquals('default string', $test->string_null_default);
-        // integer_not_null_no_default
-        $this->assertSame(0, $test->integer_not_null_no_default);
-        // integer_not_null_default
-        $this->assertEquals(5, $test->integer_not_null_default);
-        // integer_null_no_default
-        $this->assertNull($test->integer_null_no_default);
-        // integer_null_default
-        $this->assertEquals(5, $test->integer_null_default);
+        $user1 = new User;
+        $user1->name = 'user 1';
+        $user1->save();
+        $updated_at_1_origin = $user1->updated_at;
+        $user2 = new User;
+        $user2->name = 'user 2';
+        $user2->save();
+        $updated_at_2_origin = $user2->updated_at;
+
+        // if contents changed
+        sleep(2);
+        $user1->name = 'new user 1';
+        $user1->save();
+        $updated_at_1 = $user1->updated_at;
+        $this->assertNotEquals($updated_at_1_origin->toDateTimeString(), $updated_at_1->toDateTimeString());
+
+        // if contents unchanged
+        sleep(2);
+        $user1->name = 'user 2';
+        $user1->save();
+        $updated_at_2 = $user2->updated_at;
+        $this->assertEquals($updated_at_2_origin->toDateTimeString(), $updated_at_2->toDateTimeString());
     }
 }
